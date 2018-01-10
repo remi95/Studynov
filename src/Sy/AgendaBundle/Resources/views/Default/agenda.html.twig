@@ -1,19 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ parent() }} - Agenda{% endblock %}
 {% block stylesheets %}
-
+    {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css">
 {% endblock %}
+
+
 {% block body %}
-    <div id='calendar'></div>
+    <div class="container">
+        <div class="row">
+            <div id='calendar' class="col"></div>
+        </div>
+    </div>
+
 {% endblock %}
-{% block javascript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.js"></script>
-    <script src='lib/jquery.min.js'></script>
-    <script src='lib/moment.min.js'></script>
-    <script src='fullcalendar/fullcalendar.js'></script>
-    <script src='{{ asset('js/fcalendar.js') }}'></script>
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar.js') }}"></script>
+    <script src='{{ asset('js/studynov.js') }}'></script>
 {% endblock %}
 
