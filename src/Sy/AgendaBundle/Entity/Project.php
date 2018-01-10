@@ -35,6 +35,15 @@ class Project
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\User", inversedBy="projects")
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Course", inversedBy="projects")
+     */
+    private $course;
 
     /**
      * Get id
@@ -93,5 +102,52 @@ class Project
     {
         return $this->description;
     }
-}
 
+    /**
+     * Set author
+     *
+     * @param \Sy\MainBundle\Entity\User $author
+     *
+     * @return Project
+     */
+    public function setAuthor(\Sy\MainBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Sy\MainBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set course
+     *
+     * @param \Sy\MainBundle\Entity\Course $course
+     *
+     * @return Project
+     */
+    public function setCourse(\Sy\MainBundle\Entity\Course $course = null)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return \Sy\MainBundle\Entity\Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+}
