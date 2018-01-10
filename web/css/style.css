@@ -1,0 +1,8 @@
+.form-connexion {
+    position:absolute;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 500px;
+    height: auto;
+}

@@ -1,7 +1,19 @@
-{% extends "::base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} - Agenda{% endblock %}
+{% block stylesheets %}
 
-{% block body %}
-    Agenda page ;)
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css">
 {% endblock %}
+{% block body %}
+    <div id='calendar'></div>
+{% endblock %}
+{% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.js"></script>
+    <script src='lib/jquery.min.js'></script>
+    <script src='lib/moment.min.js'></script>
+    <script src='fullcalendar/fullcalendar.js'></script>
+    <script src='{{ asset('js/fcalendar.js') }}'></script>
+{% endblock %}
+
