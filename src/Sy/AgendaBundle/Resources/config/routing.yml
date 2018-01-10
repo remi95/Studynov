@@ -1,0 +1,3 @@
+sy_agenda_homepage:
+    path:     /
+    defaults: { _controller: SyAgendaBundle:Default:index }

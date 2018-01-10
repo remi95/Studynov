@@ -1,0 +1,3 @@
+sy_main_homepage:
+    path:     /
+    defaults: { _controller: SyMainBundle:Default:index }
