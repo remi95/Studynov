@@ -46,6 +46,12 @@ class Project
     private $course;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Classroom", inversedBy="projects")
+     */
+    private $classroom;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -149,5 +155,29 @@ class Project
     public function getCourse()
     {
         return $this->course;
+    }
+
+    /**
+     * Set classroom
+     *
+     * @param \Sy\MainBundle\Entity\Classroom $classroom
+     *
+     * @return Project
+     */
+    public function setClassroom(\Sy\MainBundle\Entity\Classroom $classroom = null)
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Get classroom
+     *
+     * @return \Sy\MainBundle\Entity\Classroom
+     */
+    public function getClassroom()
+    {
+        return $this->classroom;
     }
 }
