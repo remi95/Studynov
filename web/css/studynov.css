@@ -7,9 +7,16 @@
     height: auto;
 }
 
+
 .help-block ul.list-unstyled{
     background-color: #e57373;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
 }
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+}
+

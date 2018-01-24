@@ -3,14 +3,16 @@
 {% block title %}{{ parent() }} - Agenda{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar.print.min.css') }}" media='print' />
+
 {% endblock %}
 
 
 {% block body %}
-    <a href="{{ path('sy_agenda_add') }}" class="btn btn-primary">Ajouter</a>
 
+    <a href="{{ path('sy_agenda_add') }}" class="btn btn-primary">Ajouter</a>
+    <div id="calendar"></div>
 
 {% endblock %}
 
@@ -18,5 +20,34 @@
     {{ parent() }}
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar.js') }}"></script>
+    <script src="{{ asset('js/fr.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+        $('#calendar').fullCalendar({
+            locale: 'fr',
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,listWeek'
+            },
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            firstDay: 1,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {% for project in projects %}
+                    {
+                        title: '{{ project.course.name }}',
+                        start: '{{ project.date|date('Y-m-d') }}'
+                    }
+                 {% endfor %}
+            ]
+        });
+
+    });
+
+    </script>
+
 {% endblock %}
 
