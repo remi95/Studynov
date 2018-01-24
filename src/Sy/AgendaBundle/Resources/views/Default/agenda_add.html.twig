@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Agenda - Ajout{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center">Ajout d'un nouveau travail à faire</h1>
+
+        <p class="text-right">
+            Pour la classe {{ classroom }}, {{ classroom.school }}.
+        </p>
+
+        <div class="col">
+            {{ form_start(form) }}
+            {{ form_row(form.course) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.date) }}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ asset('js/studynov.js') }}'></script>
+{% endblock %}
+

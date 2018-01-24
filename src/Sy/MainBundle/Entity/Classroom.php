@@ -44,6 +44,12 @@ class Classroom
     private $projects;
 
 
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
+
+
     /**
      * Get id
      *

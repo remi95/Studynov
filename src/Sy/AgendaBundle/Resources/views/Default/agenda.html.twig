@@ -9,11 +9,8 @@
 
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div id='calendar' class="col"></div>
-        </div>
-    </div>
+    <a href="{{ path('sy_agenda_add') }}" class="btn btn-primary">Ajouter</a>
+
 
 {% endblock %}
 
@@ -21,6 +18,5 @@
     {{ parent() }}
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar.js') }}"></script>
-    <script src='{{ asset('js/studynov.js') }}'></script>
 {% endblock %}
 

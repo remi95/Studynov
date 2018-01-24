@@ -3,6 +3,7 @@
 namespace Sy\AgendaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Project
@@ -25,6 +26,12 @@ class Project
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\Date()
+     * @Assert\Range(
+     *     min = "now",
+     *     minMessage = "Tu ne peux pas entrer un projet dont la date de rendu est passée",
+     * )
      */
     private $date;
 
@@ -32,6 +39,12 @@ class Project
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(message = "Ce champs ne peut pas être vide, décrit ce qu'il faut faire")
+     * @Assert\Type("string", message = "Ce champs doit être une chaîne de caractère")
+     * @Assert\Length(
+     *     min = 10,
+     *     minMessage = "La description doit faire au moins {{ limit }} caractères",
+     * )
      */
     private $description;
 
@@ -42,6 +55,7 @@ class Project
 
     /**
      * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Course", inversedBy="projects")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide, décrit ce qu'il faut faire")
      */
     private $course;
 
@@ -49,6 +63,7 @@ class Project
      * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Classroom", inversedBy="projects")
      */
     private $classroom;
+
 
 
     /**
