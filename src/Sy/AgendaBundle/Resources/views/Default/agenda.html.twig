@@ -24,28 +24,36 @@
     <script>
         $(document).ready(function() {
 
-        $('#calendar').fullCalendar({
-            locale: 'fr',
-            header: {
-                left: 'prev,next',
-                center: 'title',
-                right: 'month,listWeek'
-            },
-            navLinks: true, // can click day/week names to navigate views
-            editable: true,
-            firstDay: 1,
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {% for project in projects %}
-                    {
-                        title: '{{ project.course.name }}',
-                        start: '{{ project.date|date('Y-m-d') }}'
-                    }
-                 {% endfor %}
-            ]
-        });
+            $('#calendar').fullCalendar({
+                locale: 'fr',
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'month,listWeek'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                firstDay: 1,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    {% for project in projects %}
+                        {
+                            title: '{{ project.course.name }}',
+                            start: '{{ project.date|date('Y-m-d') }}',
+                            description: '{{ project.description }}'
+                        },
+                     {% endfor %}
+                ],
+                eventRender: function (event, element) {
+                    element.popover({
+                        title: event.name,
+                        placement: 'bottom',
+                        content: event.description
+                    });
+                }
+            });
 
-    });
+        });
 
     </script>
 
