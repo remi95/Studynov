@@ -1,10 +1,14 @@
+sy_tuto:
+    resource: "@SyTutoBundle/Resources/config/routing.yml"
+    prefix:   /tutorial
+
 sy_main:
     resource: "@SyMainBundle/Resources/config/routing.yml"
     prefix:   /
 
 sy_agenda:
     resource: "@SyAgendaBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /agenda
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

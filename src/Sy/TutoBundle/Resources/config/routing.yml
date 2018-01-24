@@ -1,0 +1,4 @@
+sy_tuto:
+    path:     /
+    defaults:
+        _controller: SyTutoBundle:Default:index

@@ -29,6 +29,13 @@ class User extends BaseUser
      */
     private $classroom;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\TutoBundle\Entity\Tutorial", mappedBy="author")
+     */
+    private $tutorials;
+
+
+
     public function __construct()
     {
         parent::__construct();
