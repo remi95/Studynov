@@ -5,12 +5,12 @@ namespace Sy\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Course
+ * School
  *
- * @ORM\Table(name="course")
- * @ORM\Entity(repositoryClass="Sy\MainBundle\Repository\CourseRepository")
+ * @ORM\Table(name="school")
+ * @ORM\Entity(repositoryClass="Sy\MainBundle\Repository\SchoolRepository")
  */
-class Course
+class School
 {
     /**
      * @var int
@@ -29,9 +29,9 @@ class Course
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sy\AgendaBundle\Entity\Project", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Sy\MainBundle\Entity\Classroom", mappedBy="school")
      */
-    private $projects;
+    private $classrooms;
 
     public function __toString()
     {
@@ -53,7 +53,7 @@ class Course
      *
      * @param string $name
      *
-     * @return Course
+     * @return School
      */
     public function setName($name)
     {
@@ -76,40 +76,40 @@ class Course
      */
     public function __construct()
     {
-        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->classrooms = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add project
+     * Add classroom
      *
-     * @param \Sy\AgendaBundle\Entity\Project $project
+     * @param \Sy\MainBundle\Entity\Classroom $classroom
      *
-     * @return Course
+     * @return School
      */
-    public function addProject(\Sy\AgendaBundle\Entity\Project $project)
+    public function addClassroom(\Sy\MainBundle\Entity\Classroom $classroom)
     {
-        $this->projects[] = $project;
+        $this->classrooms[] = $classroom;
 
         return $this;
     }
 
     /**
-     * Remove project
+     * Remove classroom
      *
-     * @param \Sy\AgendaBundle\Entity\Project $project
+     * @param \Sy\MainBundle\Entity\Classroom $classroom
      */
-    public function removeProject(\Sy\AgendaBundle\Entity\Project $project)
+    public function removeClassroom(\Sy\MainBundle\Entity\Classroom $classroom)
     {
-        $this->projects->removeElement($project);
+        $this->classrooms->removeElement($classroom);
     }
 
     /**
-     * Get projects
+     * Get classrooms
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProjects()
+    public function getClassrooms()
     {
-        return $this->projects;
+        return $this->classrooms;
     }
 }

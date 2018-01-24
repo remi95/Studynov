@@ -13,3 +13,31 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
+
+    admin.course:
+        class: Sy\MainBundle\Admin\CourseAdmin
+        arguments: [~, Sy\MainBundle\Entity\Course, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Course, group: General }
+        public: true
+
+    admin.project:
+        class: Sy\AgendaBundle\Admin\ProjectAdmin
+        arguments: [~, Sy\AgendaBundle\Entity\Project, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Project, group: Agenda }
+        public: true
+
+    admin.school:
+        class: Sy\MainBundle\Admin\SchoolAdmin
+        arguments: [~, Sy\MainBundle\Entity\School, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: School, group: General }
+        public: true
+
+    admin.classroom:
+            class: Sy\MainBundle\Admin\ClassroomAdmin
+            arguments: [~, Sy\MainBundle\Entity\Classroom, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Classroom, group: General }
+            public: true

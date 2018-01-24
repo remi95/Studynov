@@ -24,6 +24,11 @@ class User extends BaseUser
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Classroom", inversedBy="students")
+     */
+    private $classroom;
+
     public function __construct()
     {
         parent::__construct();
@@ -62,5 +67,29 @@ class User extends BaseUser
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Set classroom
+     *
+     * @param \Sy\MainBundle\Entity\Classroom $classroom
+     *
+     * @return User
+     */
+    public function setClassroom(\Sy\MainBundle\Entity\Classroom $classroom = null)
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Get classroom
+     *
+     * @return \Sy\MainBundle\Entity\Classroom
+     */
+    public function getClassroom()
+    {
+        return $this->classroom;
     }
 }
