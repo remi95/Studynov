@@ -6,3 +6,9 @@
     width: 500px;
     height: auto;
 }
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
