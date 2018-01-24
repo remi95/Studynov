@@ -1,5 +1,7 @@
-$(document).ready(function() {
+$(window).on("load", function() {
 
-    $('.tot').popover();
+    $('body').on('click', '.fc-button-group', function(){
+        $('.popover').css('opacity', 0);
+    })
 
 });
