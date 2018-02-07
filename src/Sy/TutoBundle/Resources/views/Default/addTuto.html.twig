@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }}- Ajouter un tutoriel {% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+    <h1>Ajout d'un tutoriel</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}
