@@ -27,7 +27,7 @@ class TutorialAdmin extends AbstractAdmin
             ->add('fullVisibility', BooleanType::class, [
                 'label' => 'Visible à tout le monde (Si la case est cochée, 
                 tout le monde pourra voir le tuto, sinon seule la classe le pourra.)',
-//                'required' => false
+                'required' => false
             ])
             ->add('categories', EntityType::class, [
                 'class' => 'SyMainBundle:Category',

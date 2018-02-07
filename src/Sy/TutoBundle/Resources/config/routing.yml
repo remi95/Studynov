@@ -1,4 +1,17 @@
 sy_tuto:
     path:     /
     defaults:
-        _controller: SyTutoBundle:Default:index
+        _controller: SyTutoBundle:Tuto:index
+
+sy_addTuto:
+    path:     /add/
+    defaults:
+        _controller: SyTutoBundle:Tuto:addTuto
+
+sy_editTuto:
+    path:     /edit/{id}
+    defaults:
+        _controller: SyTutoBundle:Tuto:editTuto
+    requirements :
+        id : '\d+'
+
