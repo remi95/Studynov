@@ -9,6 +9,7 @@
 namespace Sy\TutoBundle\Admin;
 
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -23,7 +24,15 @@ class TutorialAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('title', TextType::class)
-            ->add('content', TextareaType::class)
+            ->add('content', CKEditorType::class, [
+                'config' => [
+                    'filebrowserBrowseRoute' => 'elfinder',
+                    'filebrowserBrowseRouteParameters' => [
+                        'instance' => 'default',
+                        'homeFolder' => ''
+                        ]
+                    ]
+                ])
             ->add('fullVisibility', BooleanType::class, [
                 'label' => 'Visible à tout le monde (Si la case est cochée, 
                 tout le monde pourra voir le tuto, sinon seule la classe le pourra.)',
@@ -50,7 +59,7 @@ class TutorialAdmin extends AbstractAdmin
             ->add('date')
             ->add('editDate')
             ->add('content', TextType::class,[
-                'length' => 100 
+                'length' => 100
             ])
             ->add('fullVisibility')
             ->add('categories');
