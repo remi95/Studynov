@@ -47,7 +47,11 @@ class TutorialAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('title')
-            ->add('content')
+            ->add('date')
+            ->add('editDate')
+            ->add('content', TextType::class,[
+                'length' => 100 
+            ])
             ->add('fullVisibility')
             ->add('categories');
     }

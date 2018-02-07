@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Tutoriel - {{ tuto.title }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ tuto.title }}</h1>
+
+    <div>
+        Ecrit par {{ tuto.author }}
+        Publié le {{ tuto.date|date('d.m.Y') }}
+        {% if tuto.editDate != null %}
+            Modifié le {{ tuto.editDate|date('d.m.Y') }}
+        {% endif %}
+    </div>
+
+    <div>
+        {% for category in tuto.categories %}
+            <a href="{{ path('sy_tutos', {'category': category.slug}) }}" type="button" class="btn btn-info">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <p class="jumbotron">
+        {{ tuto.content }}
+    </p>
+
+{% endblock %}

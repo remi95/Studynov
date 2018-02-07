@@ -4,6 +4,7 @@ namespace Sy\TutoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\DoctrineORMAdminBundle\Filter\BooleanFilter;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Tutorial
@@ -30,6 +31,12 @@ class Tutorial
     private $title;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -46,7 +53,7 @@ class Tutorial
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="editdate", type="date")
+     * @ORM\Column(name="editdate", type="date", nullable=true)
      */
     private $editDate;
 
@@ -74,7 +81,7 @@ class Tutorial
     public function __construct(){
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
-        $this->editDate = new \DateTime();
+        $this->editDate = null;
     }
 
     /**
@@ -264,5 +271,29 @@ class Tutorial
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Tutorial
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

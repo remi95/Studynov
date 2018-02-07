@@ -4,6 +4,57 @@
 
 {% block body %}
 
-    Liste des tutos
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Tutoriels</h1>
+
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Catégories
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item"
+               href="{{ path('sy_tutos') }}">
+                Tout afficher
+            </a>
+            {% for category in categories %}
+                <a class="dropdown-item"
+                   href="{{ path('sy_tutos', {'category': category.slug}) }}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="list-group col-sm-10 offset-sm-1">
+
+        {% for tuto in tutos %}
+
+            <a href="{{ path('sy_tuto', {'slug': tuto.slug}) }}"
+               class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ tuto.title }}</h5>
+                    <small>
+                        {% if tuto.editDate == null %}
+                            {{ tuto.date|date('d.m.Y') }}
+                        {% else %}
+                            {{ tuto.editDate|date('d.m.Y') }}
+                        {% endif %}
+                    </small>
+                </div>
+                <p class="mb-1">
+                    {{ tuto.content|slice(0, 100) }}
+                </p>
+                <small>Par {{ tuto.author }}</small>
+            </a>
+
+        {% endfor %}
+
+    </div>
 
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace Sy\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Category
@@ -29,6 +30,12 @@ class Category
     private $name;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Sy\TutoBundle\Entity\Tutorial", mappedBy="categories")
      */
     private $tutorials;
@@ -36,7 +43,7 @@ class Category
 
     public function __toString()
     {
-        return $this->getName();
+        return (String) $this->getName();
     }
 
     /**
@@ -112,5 +119,29 @@ class Category
     public function getTutorials()
     {
         return $this->tutorials;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

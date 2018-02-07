@@ -10,4 +10,20 @@ namespace Sy\TutoBundle\Repository;
  */
 class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByCategory($category){
+        $qry = $this->createQueryBuilder('t')
+            ->leftJoin('t.categories', 'c')
+            ->addSelect('c')
+            ->andWhere("c.slug = '".$category."'")
+            ->orderBy('t.date', 'DESC')
+            ->getQuery();
+
+//        $qry->setFirstResult(($page-1) * $nbParPage)
+//            ->setMaxResults($nbParPage);
+
+//        return new Paginator($qry, true);
+
+            return $qry->getResult();
+    }
+
 }

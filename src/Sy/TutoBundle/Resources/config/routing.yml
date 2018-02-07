@@ -1,4 +1,10 @@
-sy_tuto:
-    path:     /
+sy_tutos:
+    path:     /tutoriels/{category}
     defaults:
-        _controller: SyTutoBundle:Default:index
+        _controller:  SyTutoBundle:Tuto:index
+        category:     all
+
+sy_tuto:
+    path:     /tutoriel/{slug}
+    defaults:
+        _controller: SyTutoBundle:Tuto:view
