@@ -34,6 +34,11 @@ class Category
     private $tutorials;
 
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * Get id
      *

@@ -74,6 +74,7 @@ class Tutorial
     public function __construct(){
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
+        $this->editDate = new \DateTime();
     }
 
     /**
@@ -210,11 +211,11 @@ class Tutorial
     /**
      * Set author
      *
-     * @param \Sy\MainBundle\User $author
+     * @param \Sy\MainBundle\Entity\User $author
      *
      * @return Tutorial
      */
-    public function setAuthor(\Sy\MainBundle\User $author = null)
+    public function setAuthor(\Sy\MainBundle\Entity\User $author = null)
     {
         $this->author = $author;
 
@@ -224,7 +225,7 @@ class Tutorial
     /**
      * Get author
      *
-     * @return \Sy\MainBundle\User
+     * @return \Sy\MainBundle\Entity\User
      */
     public function getAuthor()
     {
@@ -234,11 +235,11 @@ class Tutorial
     /**
      * Add category
      *
-     * @param \Sy\MainBundle\Category $category
+     * @param \Sy\MainBundle\Entity\Category $category
      *
      * @return Tutorial
      */
-    public function addCategory(\Sy\MainBundle\Category $category)
+    public function addCategory(\Sy\MainBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
 
@@ -248,9 +249,9 @@ class Tutorial
     /**
      * Remove category
      *
-     * @param \Sy\MainBundle\Category $category
+     * @param \Sy\MainBundle\Entity\Category $category
      */
-    public function removeCategory(\Sy\MainBundle\Category $category)
+    public function removeCategory(\Sy\MainBundle\Entity\Category $category)
     {
         $this->categories->removeElement($category);
     }

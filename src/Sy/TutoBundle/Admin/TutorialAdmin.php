@@ -25,29 +25,31 @@ class TutorialAdmin extends AbstractAdmin
         $formMapper->add('title', TextType::class)
             ->add('content', TextareaType::class)
             ->add('fullVisibility', BooleanType::class, [
-                'label' => 'Visible à tout le monde'
+                'label' => 'Visible à tout le monde (Si la case est cochée, 
+                tout le monde pourra voir le tuto, sinon seule la classe le pourra.)',
+//                'required' => false
             ])
             ->add('categories', EntityType::class, [
                 'class' => 'SyMainBundle:Category',
                 'label' => 'Catégories',
                 'multiple' => true
-            ])
-            ->add('content', EntityType::class, [
-                'class' => 'SyMainBundle:School',
-                'label' => 'School'
             ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name')
-            ->add('school');
+        $datagridMapper->add('title')
+            ->add('content')
+            ->add('fullVisibility')
+            ->add('categories');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name')
-            ->add('school');
+        $listMapper->addIdentifier('title')
+            ->add('content')
+            ->add('fullVisibility')
+            ->add('categories');
     }
 
     public function getNewInstance()

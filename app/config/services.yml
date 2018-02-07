@@ -42,9 +42,15 @@ services:
                 - { name: sonata.admin, manager_type: orm, label: Classroom, group: General }
             public: true
 
-    admin.tutorials:
-                class: Sy\TutoBundle\Admin\TutorialAdmin
-                arguments: [~, Sy\TutoBundle\Entity\Tutorial, ~]
-                tags:
-                    - { name: sonata.admin, manager_type: orm, label: Tutorial, group: Tutos }
-                public: true
+    admin.tutorial:
+            class: Sy\TutoBundle\Admin\TutorialAdmin
+            arguments: [~, Sy\TutoBundle\Entity\Tutorial, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Tutorial, group: Tutos }
+            public: true
+    admin.category:
+            class: Sy\MainBundle\Admin\CategoryAdmin
+            arguments: [~, Sy\MainBundle\Entity\Category, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Category, group: General }
+            public: true
