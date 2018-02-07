@@ -58,7 +58,7 @@
             "php": "5.5.9"
         },
         "sort-packages": true,
-        "component-dir": "web/assets/upload"
+        "component-dir": "web/assets"
     },
     "extra": {
         "symfony-app-dir": "app",

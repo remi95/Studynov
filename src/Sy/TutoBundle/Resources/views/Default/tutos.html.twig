@@ -31,6 +31,8 @@
         </div>
     </div>
 
+    <a href="{{ path('sy_addTuto') }}" type="button" class="btn btn-success">Ajouter</a>
+
     <div class="list-group col-sm-10 offset-sm-1">
 
         {% for tuto in tutos %}
@@ -50,6 +52,13 @@
                 <p class="mb-1">
                     {{ tuto.content|slice(0, 100) }}
                 </p>
+
+                {% if app.user == tuto.author %}
+                    <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"
+                       type="button"
+                       class="btn btn-primary col-sm-2">Modifier</a>
+                {% endif %}
+
                 <small>Par {{ tuto.author }}</small>
             </a>
 

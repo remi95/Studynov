@@ -4,6 +4,12 @@
 
 {% block body %}
 
+    {% if app.user == tuto.author %}
+        <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"
+           type="button"
+           class="btn btn-primary col-sm-2">Modifier</a>
+    {% endif %}
+
     <h1>{{ tuto.title }}</h1>
 
     <div>

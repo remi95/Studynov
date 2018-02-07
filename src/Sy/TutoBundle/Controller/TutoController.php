@@ -61,12 +61,12 @@ class TutoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $prodToSave = $form->getData();
+            $addedTuto = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($prodToSave);
+            $em->persist($addedTuto);
             $em->flush();
 
-            return $this->redirectToRoute('sy_tuto');
+            return $this->redirectToRoute('sy_tuto', ['slug' => $addedTuto->getSlug()]);
         }
 
         return $this -> render ('SyTutoBundle:Default:addTuto.html.twig', array(
@@ -87,12 +87,13 @@ class TutoController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $prodToSave = $form->getData();
+                $editedTuto = $form->getData();
+                $editedTuto->setEditDate(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($prodToSave);
+                $em->persist($editedTuto);
                 $em->flush();
 
-                return $this->redirectToRoute('sy_tuto');
+                return $this->redirectToRoute('sy_tuto', ['slug' => $editedTuto->getSlug()]);
             }
 
             return $this->render('SyTutoBundle:Default:editTuto.html.twig', array(
