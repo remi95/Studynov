@@ -50,20 +50,41 @@
                     </small>
                 </div>
                 <p class="mb-1">
-                    {{ tuto.content|slice(0, 100) }}
+                    {{ tuto.content|slice(0, 100)|raw }}...
                 </p>
+
+                <small>Par {{ tuto.author }}</small>
 
                 {% if app.user == tuto.author %}
                     <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"
-                       type="button"
-                       class="btn btn-primary col-sm-2">Modifier</a>
+                       class="float-right text-success">
+                        <i class="material-icons">mode_edit</i>
+                    </a>
                 {% endif %}
-
-                <small>Par {{ tuto.author }}</small>
             </a>
 
         {% endfor %}
 
     </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('sy_tutos', {'category': category, 'page': page-1}) }}"
+                   tabindex="-1">Précédent</a>
+            </li>
+
+            {% for i in 1..maxPage %}
+                <li class="page-item {% if page == i %}active{% endif %}">
+                    <a class="page-link"
+                       href="{{ path('sy_tutos', {'category': category, 'page': i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('sy_tutos', {'category': category, 'page': page+1}) }}">Next</a>
+            </li>
+        </ul>
+    </nav>
 
 {% endblock %}

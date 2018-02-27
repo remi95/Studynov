@@ -28,8 +28,8 @@
         {% endfor %}
     </div>
 
-    <p class="jumbotron">
-        {{ tuto.content }}
-    </p>
+    <div class="jumbotron">
+        {{ tuto.content|raw }}
+    </div>
 
 {% endblock %}

@@ -1,8 +1,11 @@
 sy_tutos:
-    path:     /list/{category}
+    path:     /list/{category}/{page}
     defaults:
         _controller:  SyTutoBundle:Tuto:index
         category:     all
+        page: 1
+    requirements:
+        page: \d*
 
 sy_addTuto:
     path:     /add/
