@@ -54,13 +54,6 @@
                 </p>
 
                 <small>Par {{ tuto.author }}</small>
-
-                {% if app.user == tuto.author %}
-                    <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"
-                       class="float-right text-success">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                {% endif %}
             </a>
 
         {% endfor %}

@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    <a href="{{ app.request.headers.get('referer') }}">Retour</a>
+
     {% if app.user == tuto.author %}
         <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"
            type="button"
@@ -13,8 +15,8 @@
     <h1>{{ tuto.title }}</h1>
 
     <div>
-        Ecrit par {{ tuto.author }}
-        Publié le {{ tuto.date|date('d.m.Y') }}
+        Ecrit par {{ tuto.author }} <br>
+        Publié le {{ tuto.date|date('d.m.Y') }} <br>
         {% if tuto.editDate != null %}
             Modifié le {{ tuto.editDate|date('d.m.Y') }}
         {% endif %}
