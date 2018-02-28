@@ -13,6 +13,8 @@ class TutoController extends Controller
     public function indexAction(Request $request, $category, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $classroom = $user->getClassroom()->getName();
 
         $categories = $em->getRepository('SyMainBundle:Category')
             ->findAll();
@@ -21,11 +23,11 @@ class TutoController extends Controller
 
         if ($category == 'all') {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findTutos($page, $nbPerPage);
+                ->findTutos($classroom, $page, $nbPerPage);
         }
         else {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findByCategory($category, $page, $nbPerPage);
+                ->findByCategory($classroom, $category, $page, $nbPerPage);
         }
 
         $maxPage = ceil(count($tutos)/$nbPerPage);

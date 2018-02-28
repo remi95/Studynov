@@ -12,8 +12,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findTutos($page, $nbPerPage){
+    public function findTutos($classroom, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
+            ->leftJoin('t.author', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.classroom', 'cl')
+            ->addSelect('cl')
+            ->andWhere('t.fullVisibility = true')
+            ->orWhere("cl.name = '".$classroom."'")
             ->orderBy('t.date', 'DESC')
             ->getQuery();
 
@@ -22,10 +28,16 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
 
         return new Paginator($qry, true);
     }
-    public function findByCategory($category, $page, $nbPerPage){
+    public function findByCategory($classroom, $category, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
             ->leftJoin('t.categories', 'c')
             ->addSelect('c')
+            ->leftJoin('t.author', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.classroom', 'cl')
+            ->addSelect('cl')
+            ->andWhere('t.fullVisibility = true')
+            ->orWhere("cl.name = '".$classroom."'")
             ->andWhere("c.slug = '".$category."'")
             ->orderBy('t.date', 'DESC')
             ->getQuery();
