@@ -1,23 +1,35 @@
 sy_tutos:
-    path:     /tutoriels/{category}
+    path:     /list/{category}/{page}
     defaults:
         _controller:  SyTutoBundle:Tuto:index
         category:     all
+<<<<<<< HEAD
+=======
+        page: 1
+    requirements:
+        page: \d*
+>>>>>>> 447b4b420b39a03b103ed39137455b531968efca
 
 sy_addTuto:
-    path:     /tutoriel/add/
+    path:     /add/
     defaults:
         _controller: SyTutoBundle:Tuto:addTuto
 
 sy_editTuto:
-    path:     /tutoriel/edit/{id}
+    path:     /edit/{id}
     defaults:
         _controller: SyTutoBundle:Tuto:editTuto
     requirements :
         id : '\d+'
 
 sy_tuto:
+<<<<<<< HEAD
     path:     /tutoriel/{slug}
     defaults:
         _controller: SyTutoBundle:Tuto:view
 
+=======
+    path:     /{slug}
+    defaults:
+        _controller: SyTutoBundle:Tuto:view
+>>>>>>> 447b4b420b39a03b103ed39137455b531968efca

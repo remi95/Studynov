@@ -6,23 +6,32 @@ use Sy\TutoBundle\Entity\Tutorial;
 use Sy\TutoBundle\Form\TutorialType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TutoController extends Controller
 {
-    public function indexAction(Request $request, $category)
+    public function indexAction(Request $request, $category, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('SyMainBundle:Category')
             ->findAll();
 
+        $nbPerPage = 7;
+
         if ($category == 'all') {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findAll();
+                ->findTutos($page, $nbPerPage);
         }
         else {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findByCategory($category);
+                ->findByCategory($category, $page, $nbPerPage);
+        }
+
+        $maxPage = ceil(count($tutos)/$nbPerPage);
+
+        if($page < 1 || $page > $maxPage){
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
 
         if ($tutos == null){
@@ -32,7 +41,10 @@ class TutoController extends Controller
 
         return $this->render('SyTutoBundle:Default:tutos.html.twig', [
             'tutos' => $tutos,
-            'categories' => $categories
+            'categories' => $categories,
+            'category' => $category,
+            'page' => $page,
+            'maxPage' => $maxPage,
         ]);
     }
 
@@ -62,12 +74,12 @@ class TutoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $prodToSave = $form->getData();
+            $addedTuto = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($prodToSave);
+            $em->persist($addedTuto);
             $em->flush();
 
-            return $this->redirectToRoute('sy_tuto', ['slug' => $prodToSave->getSlug()]);
+            return $this->redirectToRoute('sy_tuto', ['slug' => $addedTuto->getSlug()]);
         }
 
         return $this -> render ('SyTutoBundle:Default:addTuto.html.twig', array(
@@ -88,12 +100,13 @@ class TutoController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $prodToSave = $form->getData();
+                $editedTuto = $form->getData();
+                $editedTuto->setEditDate(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($prodToSave);
+                $em->persist($editedTuto);
                 $em->flush();
 
-                return $this->redirectToRoute('sy_tuto', ['slug' => $prodToSave->getSlug()]);
+                return $this->redirectToRoute('sy_tuto', ['slug' => $editedTuto->getSlug()]);
             }
 
             return $this->render('SyTutoBundle:Default:editTuto.html.twig', array(

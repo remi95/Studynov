@@ -2,6 +2,8 @@
 
 namespace Sy\TutoBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * TutorialRepository
  *
@@ -10,7 +12,17 @@ namespace Sy\TutoBundle\Repository;
  */
 class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findByCategory($category){
+    public function findTutos($page, $nbPerPage){
+        $qry = $this->createQueryBuilder('t')
+            ->orderBy('t.date', 'DESC')
+            ->getQuery();
+
+        $qry->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($qry, true);
+    }
+    public function findByCategory($category, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
             ->leftJoin('t.categories', 'c')
             ->addSelect('c')
@@ -18,12 +30,10 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('t.date', 'DESC')
             ->getQuery();
 
-//        $qry->setFirstResult(($page-1) * $nbParPage)
-//            ->setMaxResults($nbParPage);
+        $qry->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
 
-//        return new Paginator($qry, true);
-
-            return $qry->getResult();
+        return new Paginator($qry, true);
     }
 
 }

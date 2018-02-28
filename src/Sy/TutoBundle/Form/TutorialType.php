@@ -3,9 +3,11 @@
 namespace Sy\TutoBundle\Form;
 
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,10 +23,19 @@ class TutorialType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'Titre du tutoriel : '
-        ])->add('content', TextType::class, [
-            'label' => 'Contenu : '
         ])->add('fullVisibility', BooleanType::class,[
             'label' => 'Visible à tout le monde (Si "non" seule la classe pourra le voir.)',
+        ])->add('content', CKEditorType::class, [
+            'config' => [
+                'filebrowserBrowseRoute' => 'elfinder',
+                'filebrowserBrowseRouteParameters' => [
+                    'instance' => 'default',
+                    'homeFolder' => ''
+                ]
+            ],
+            'label' => 'Contenu'
+        ])->add('fullVisibility', CheckboxType::class,[
+            'label' => 'Visible à tout le monde (Si "non" seule la classe le pourra le voir.)',
                 'required' => false
         ])->add('categories', EntityType::class, [
                 'class' => 'SyMainBundle:Category',
