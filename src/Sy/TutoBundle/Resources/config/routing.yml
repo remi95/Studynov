@@ -4,11 +4,6 @@ sy_tutos:
         _controller:  SyTutoBundle:Tuto:index
         category:     all
 
-sy_tuto:
-    path:     /tutoriel/{slug}
-    defaults:
-        _controller: SyTutoBundle:Tuto:view
-
 sy_addTuto:
     path:     /tutoriel/add/
     defaults:
@@ -20,4 +15,9 @@ sy_editTuto:
         _controller: SyTutoBundle:Tuto:editTuto
     requirements :
         id : '\d+'
+
+sy_tuto:
+    path:     /tutoriel/{slug}
+    defaults:
+        _controller: SyTutoBundle:Tuto:view
 

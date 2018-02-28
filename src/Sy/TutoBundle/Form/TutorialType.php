@@ -24,7 +24,7 @@ class TutorialType extends AbstractType
         ])->add('content', TextType::class, [
             'label' => 'Contenu : '
         ])->add('fullVisibility', BooleanType::class,[
-            'label' => 'Visible à tout le monde (Si "non" seule la classe le pourra le voir.)',
+            'label' => 'Visible à tout le monde (Si "non" seule la classe pourra le voir.)',
                 'required' => false
         ])->add('categories', EntityType::class, [
                 'class' => 'SyMainBundle:Category',

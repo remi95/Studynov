@@ -56,6 +56,7 @@ class TutoController extends Controller
         $tuto = new Tutorial();
         $tuto->setAuthor($user);
 
+
         $form = $this -> createForm(TutorialType::class, $tuto);
 
         $form->handleRequest($request);
@@ -66,7 +67,7 @@ class TutoController extends Controller
             $em->persist($prodToSave);
             $em->flush();
 
-            return $this->redirectToRoute('sy_tuto');
+            return $this->redirectToRoute('sy_tuto', ['slug' => $prodToSave->getSlug()]);
         }
 
         return $this -> render ('SyTutoBundle:Default:addTuto.html.twig', array(
@@ -92,7 +93,7 @@ class TutoController extends Controller
                 $em->persist($prodToSave);
                 $em->flush();
 
-                return $this->redirectToRoute('sy_tuto');
+                return $this->redirectToRoute('sy_tuto', ['slug' => $prodToSave->getSlug()]);
             }
 
             return $this->render('SyTutoBundle:Default:editTuto.html.twig', array(
