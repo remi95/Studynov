@@ -3,12 +3,9 @@ sy_tutos:
     defaults:
         _controller:  SyTutoBundle:Tuto:index
         category:     all
-<<<<<<< HEAD
-=======
         page: 1
     requirements:
         page: \d*
->>>>>>> 447b4b420b39a03b103ed39137455b531968efca
 
 sy_addTuto:
     path:     /add/
@@ -23,13 +20,10 @@ sy_editTuto:
         id : '\d+'
 
 sy_tuto:
-<<<<<<< HEAD
     path:     /tutoriel/{slug}
     defaults:
         _controller: SyTutoBundle:Tuto:view
-
-=======
     path:     /{slug}
     defaults:
         _controller: SyTutoBundle:Tuto:view
->>>>>>> 447b4b420b39a03b103ed39137455b531968efca
+

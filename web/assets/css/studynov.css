@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,400i,700|Gloria+Hallelujah');
+.bitterfont {
+    font-family: Bitter, serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+.title-center {
+    text-align: center;
+    font-size: 60px;
+    padding-top: 30px;
+}
+.gloriafont {
+    font-family: Gloria Hallelujah, serif;
+    font-weight: 400;
+}
+
 .form-connexion {
     position:absolute;
     top: 150px;
