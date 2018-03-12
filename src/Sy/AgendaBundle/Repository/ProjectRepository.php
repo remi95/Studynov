@@ -10,4 +10,14 @@ namespace Sy\AgendaBundle\Repository;
  */
 class ProjectRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByGroups($groups)
+    {
+        $qry = $this-> createQueryBuilder('p')
+            ->andWhere("p.group IN (:groups)")
+            ->setParameter('groups', $groups)
+            ->getQuery()
+            ->getResult();
+
+        return $qry;
+    }
 }

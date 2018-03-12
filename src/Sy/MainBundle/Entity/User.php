@@ -25,15 +25,14 @@ class User extends BaseUser
     private $projects;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Classroom", inversedBy="students")
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", inversedBy="users")
      */
-    private $classroom;
+    private $groupClasses;
 
     /**
      * @ORM\OneToMany(targetEntity="Sy\TutoBundle\Entity\Tutorial", mappedBy="author")
      */
     private $tutorials;
-
 
 
     public function __construct()
@@ -77,26 +76,71 @@ class User extends BaseUser
     }
 
     /**
-     * Set classroom
+     * Add tutorial
      *
-     * @param \Sy\MainBundle\Entity\Classroom $classroom
+     * @param \Sy\TutoBundle\Entity\Tutorial $tutorial
      *
      * @return User
      */
-    public function setClassroom(\Sy\MainBundle\Entity\Classroom $classroom = null)
+    public function addTutorial(\Sy\TutoBundle\Entity\Tutorial $tutorial)
     {
-        $this->classroom = $classroom;
+        $this->tutorials[] = $tutorial;
 
         return $this;
     }
 
     /**
-     * Get classroom
+     * Remove tutorial
      *
-     * @return \Sy\MainBundle\Entity\Classroom
+     * @param \Sy\TutoBundle\Entity\Tutorial $tutorial
      */
-    public function getClassroom()
+    public function removeTutorial(\Sy\TutoBundle\Entity\Tutorial $tutorial)
     {
-        return $this->classroom;
+        $this->tutorials->removeElement($tutorial);
+    }
+
+    /**
+     * Get tutorials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTutorials()
+    {
+        return $this->tutorials;
+    }
+
+
+    /**
+     * Add groupClass
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $groupClass
+     *
+     * @return User
+     */
+    public function addGroupClasses(\Sy\MainBundle\Entity\GroupClass $groupClass)
+    {
+        $this->groupClasses[] = $groupClass;
+
+        return $this;
+    }
+
+    /**
+     * Remove groupClass
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $groupClass
+     */
+    public function removeGroupClasses(\Sy\MainBundle\Entity\GroupClass $groupClass)
+    {
+        $this->groupClasses->removeElement($groupClass);
+    }
+
+    /**
+     * Get groupClass
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroupClasses()
+    {
+        return $this->groupClasses;
     }
 }

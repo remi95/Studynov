@@ -14,13 +14,12 @@ class AgendaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
-        $classroom = $user->getClassroom();
-        $projects = $em->getRepository('SyAgendaBundle:Project')->findBy([
-            'classroom' => $classroom
-        ]);
+        $groups = $user->getGroupClasses();
+        $projects = $em->getRepository('SyAgendaBundle:Project')
+            ->findByGroups($groups);
 
         return $this->render('SyAgendaBundle:Default:agenda.html.twig', [
-            'projects' => $projects
+            'projects' => $projects,
         ]);
     }
 
@@ -29,13 +28,12 @@ class AgendaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
-        $classroom = $user->getClassroom();
+        $groups = $user->getGroupClasses();
 
         $project = new Project();
-        $project->setAuthor( $user )
-            ->setClassroom( $classroom );
+        $project->setAuthor( $user );
 
-        $form = $this->createForm(ProjectType::class, $project);
+        $form = $this->createForm(ProjectType::class, $project, array('groups' => $groups));
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -49,7 +47,6 @@ class AgendaController extends Controller
 
         return $this->render('SyAgendaBundle:Default:agenda_add.html.twig', [
             'form' => $form->createView(),
-            'classroom' => $classroom
         ]);
     }
 }

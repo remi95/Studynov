@@ -2,6 +2,7 @@
 
 namespace Sy\AgendaBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,7 +18,12 @@ class ProjectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('course', EntityType::class, [
+        $builder->add('group', EntityType::class, [
+                'class' => 'SyMainBundle:GroupClass',
+                'choices' => $options['groups'],
+                'label' => 'Groupe'
+            ])
+            ->add('course', EntityType::class, [
                         'class' => 'SyMainBundle:Course',
                         'label' => 'Cours'
                     ])
@@ -34,7 +40,8 @@ class ProjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Sy\AgendaBundle\Entity\Project'
+            'data_class' => 'Sy\AgendaBundle\Entity\Project',
+            'groups' => null,
         ));
     }
 

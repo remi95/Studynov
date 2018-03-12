@@ -12,14 +12,14 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findTutos($classroom, $page, $nbPerPage){
+    public function findTutos($groups, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
             ->leftJoin('t.author', 'u')
             ->addSelect('u')
-            ->leftJoin('u.classroom', 'cl')
-            ->addSelect('cl')
+            ->leftJoin('u.groupClasses', 'g')
+            ->addSelect('g')
             ->andWhere('t.fullVisibility = true')
-            ->orWhere("cl.name = '".$classroom."'")
+            ->orWhere("g = '".$groups."'")
             ->orderBy('t.date', 'DESC')
             ->getQuery();
 
@@ -28,7 +28,7 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
 
         return new Paginator($qry, true);
     }
-    public function findByCategory($classroom, $category, $page, $nbPerPage){
+    public function findByCategory($groups, $category, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
             ->leftJoin('t.categories', 'c')
             ->addSelect('c')
@@ -37,7 +37,7 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('u.classroom', 'cl')
             ->addSelect('cl')
             ->andWhere('t.fullVisibility = true')
-            ->orWhere("cl.name = '".$classroom."'")
+            ->orWhere("cl.name = '".$groups."'")
             ->andWhere("c.slug = '".$category."'")
             ->orderBy('t.date', 'DESC')
             ->getQuery();

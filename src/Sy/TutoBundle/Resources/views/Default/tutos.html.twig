@@ -22,10 +22,10 @@
                href="{{ path('sy_tutos') }}">
                 Tout afficher
             </a>
-            {% for category in categories %}
+            {% for eachCategory in categories %}
                 <a class="dropdown-item"
-                   href="{{ path('sy_tutos', {'category': category.slug}) }}">
-                    {{ category.name }}
+                   href="{{ path('sy_tutos', {'category': eachCategory.slug}) }}">
+                    {{ eachCategory.name }}
                 </a>
             {% endfor %}
         </div>

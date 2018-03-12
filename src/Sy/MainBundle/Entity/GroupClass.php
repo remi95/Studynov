@@ -5,12 +5,12 @@ namespace Sy\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Classroom
+ * GroupClass
  *
- * @ORM\Table(name="classroom")
- * @ORM\Entity(repositoryClass="Sy\MainBundle\Repository\ClassroomRepository")
+ * @ORM\Table(name="group_class")
+ * @ORM\Entity(repositoryClass="Sy\MainBundle\Repository\GroupClassRepository")
  */
-class Classroom
+class GroupClass
 {
     /**
      * @var int
@@ -24,29 +24,23 @@ class Classroom
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50)
+     * @ORM\Column(name="name", type="string", length=100, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\School", inversedBy="classrooms")
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\User", inversedBy="groupClass")
      */
-    private $school;
+    private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sy\MainBundle\Entity\User", mappedBy="classroom")
-     */
-    private $students;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Sy\AgendaBundle\Entity\Project", mappedBy="classroom")
+     * @ORM\OneToMany(targetEntity="Sy\AgendaBundle\Entity\Project", mappedBy="group")
      */
     private $projects;
 
-
     public function __toString()
     {
-        return (string) $this->getName();
+        return (String) $this->getName();
     }
 
 
@@ -65,7 +59,7 @@ class Classroom
      *
      * @param string $name
      *
-     * @return Classroom
+     * @return GroupClass
      */
     public function setName($name)
     {
@@ -88,65 +82,42 @@ class Classroom
      */
     public function __construct()
     {
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Set school
+     * Add user
      *
-     * @param \Sy\MainBundle\Entity\School $school
+     * @param \Sy\MainBundle\Entity\User $user
      *
-     * @return Classroom
+     * @return GroupClass
      */
-    public function setSchool(\Sy\MainBundle\Entity\School $school = null)
+    public function addUser(\Sy\MainBundle\Entity\User $user)
     {
-        $this->school = $school;
+        $this->users[] = $user;
 
         return $this;
     }
 
     /**
-     * Get school
+     * Remove user
      *
-     * @return \Sy\MainBundle\Entity\School
+     * @param \Sy\MainBundle\Entity\User $user
      */
-    public function getSchool()
+    public function removeUser(\Sy\MainBundle\Entity\User $user)
     {
-        return $this->school;
+        $this->users->removeElement($user);
     }
 
     /**
-     * Add student
-     *
-     * @param \Sy\MainBundle\Entity\User $student
-     *
-     * @return Classroom
-     */
-    public function addStudent(\Sy\MainBundle\Entity\User $student)
-    {
-        $this->students[] = $student;
-
-        return $this;
-    }
-
-    /**
-     * Remove student
-     *
-     * @param \Sy\MainBundle\Entity\User $student
-     */
-    public function removeStudent(\Sy\MainBundle\Entity\User $student)
-    {
-        $this->students->removeElement($student);
-    }
-
-    /**
-     * Get students
+     * Get users
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStudents()
+    public function getUsers()
     {
-        return $this->students;
+        return $this->users;
     }
 
     /**
@@ -154,7 +125,7 @@ class Classroom
      *
      * @param \Sy\AgendaBundle\Entity\Project $project
      *
-     * @return Classroom
+     * @return GroupClass
      */
     public function addProject(\Sy\AgendaBundle\Entity\Project $project)
     {

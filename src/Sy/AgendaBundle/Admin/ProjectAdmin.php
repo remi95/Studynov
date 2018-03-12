@@ -21,7 +21,11 @@ class ProjectAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('course', EntityType::class, [
+        $formMapper->add('group', EntityType::class, [
+                'class' => 'SyMainBundle:GroupClass',
+                'label' => 'Groupe'
+            ])
+            ->add('course', EntityType::class, [
                 'class' => 'SyMainBundle:Course',
                 'label' => 'Cours'
             ])
@@ -50,9 +54,7 @@ class ProjectAdmin extends AbstractAdmin
     {
         $instance = parent::getNewInstance();
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
-        $classroom = $user->getClassroom();
         $instance->setAuthor($user);
-        $instance->setClassroom($classroom);
 
         return $instance;
     }

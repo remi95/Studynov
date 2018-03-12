@@ -14,7 +14,7 @@ class TutoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $classroom = $user->getClassroom()->getName();
+        $groups = $user->getGroupClasses();
 
         $categories = $em->getRepository('SyMainBundle:Category')
             ->findAll();
@@ -23,11 +23,11 @@ class TutoController extends Controller
 
         if ($category == 'all') {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findTutos($classroom, $page, $nbPerPage);
+                ->findTutos($groups, $page, $nbPerPage);
         }
         else {
             $tutos = $em->getRepository('SyTutoBundle:Tutorial')
-                ->findByCategory($classroom, $category, $page, $nbPerPage);
+                ->findByCategory($groups, $category, $page, $nbPerPage);
         }
 
         $maxPage = ceil(count($tutos)/$nbPerPage);

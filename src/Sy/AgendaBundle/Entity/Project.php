@@ -60,9 +60,9 @@ class Project
     private $course;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\Classroom", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\GroupClass", inversedBy="projects")
      */
-    private $classroom;
+    private $group;
 
 
 
@@ -173,26 +173,26 @@ class Project
     }
 
     /**
-     * Set classroom
+     * Set group
      *
-     * @param \Sy\MainBundle\Entity\Classroom $classroom
+     * @param \Sy\MainBundle\Entity\GroupClass $group
      *
      * @return Project
      */
-    public function setClassroom(\Sy\MainBundle\Entity\Classroom $classroom = null)
+    public function setGroup(\Sy\MainBundle\Entity\GroupClass $group = null)
     {
-        $this->classroom = $classroom;
+        $this->group = $group;
 
         return $this;
     }
 
     /**
-     * Get classroom
+     * Get group
      *
-     * @return \Sy\MainBundle\Entity\Classroom
+     * @return \Sy\MainBundle\Entity\GroupClass
      */
-    public function getClassroom()
+    public function getGroup()
     {
-        return $this->classroom;
+        return $this->group;
     }
 }
