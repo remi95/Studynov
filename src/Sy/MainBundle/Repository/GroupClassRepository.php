@@ -2,6 +2,8 @@
 
 namespace Sy\MainBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * GroupClassRepository
  *
@@ -10,4 +12,5 @@ namespace Sy\MainBundle\Repository;
  */
 class GroupClassRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

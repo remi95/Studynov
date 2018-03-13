@@ -22,33 +22,42 @@ class TutorialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, [
-            'label' => 'Titre du tutoriel : '
-        ])->add('fullVisibility', BooleanType::class,[
-            'label' => 'Visible à tout le monde (Si "non" seule la classe pourra le voir.)',
-        ])->add('content', CKEditorType::class, [
-            'config' => [
-                'filebrowserBrowseRoute' => 'elfinder',
-                'filebrowserBrowseRouteParameters' => [
-                    'instance' => 'default',
-                    'homeFolder' => ''
-                ]
-            ],
-            'label' => 'Contenu'
-        ])->add('fullVisibility', CheckboxType::class,[
-            'label' => 'Visible à tout le monde (Si "non" seule la classe le pourra le voir.)',
-                'required' => false
-        ])->add('categories', EntityType::class, [
-                'class' => 'SyMainBundle:Category',
-                'label' => 'Catégories : ',
+                'label' => 'Titre du tutoriel : '
+            ])
+            ->add('content', CKEditorType::class, [
+                'config' => [
+                    'filebrowserBrowseRoute' => 'elfinder',
+                    'filebrowserBrowseRouteParameters' => [
+                        'instance' => 'default',
+                        'homeFolder' => ''
+                    ]
+                ],
+                'label' => 'Contenu'
+            ])
+            ->add('fullVisibility', CheckboxType::class,[
+                'label' => 'Visible à tout le monde (Si "non" seule la classe pourra le voir.)',
+                    'required' => false
+            ])
+            ->add('groups', EntityType::class, [
+                'class' => 'SyMainBundle:GroupClass',
+                'choices' => $options['groups'],
+                'label' => 'Groupes',
                 'multiple' => true
-        ])->add('Valider', SubmitType::class);
+            ])
+            ->add('categories', EntityType::class, [
+                    'class' => 'SyMainBundle:Category',
+                    'label' => 'Catégories : ',
+                    'multiple' => true
+            ])
+            ->add('Valider', SubmitType::class);
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Sy\TutoBundle\Entity\Tutorial'
+            'data_class' => 'Sy\TutoBundle\Entity\Tutorial',
+            'groups' => null,
         ));
     }
 

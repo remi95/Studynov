@@ -38,6 +38,11 @@ class GroupClass
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sy\TutoBundle\Entity\Tutorial", inversedBy="groups")
+     */
+    private $tutos;
+
     public function __toString()
     {
         return (String) $this->getName();
@@ -152,5 +157,39 @@ class GroupClass
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Add tuto
+     *
+     * @param \Sy\TutoBundle\Entity\Tutorial $tuto
+     *
+     * @return GroupClass
+     */
+    public function addTuto(\Sy\TutoBundle\Entity\Tutorial $tuto)
+    {
+        $this->tutos[] = $tuto;
+
+        return $this;
+    }
+
+    /**
+     * Remove tuto
+     *
+     * @param \Sy\TutoBundle\Entity\Tutorial $tuto
+     */
+    public function removeTuto(\Sy\TutoBundle\Entity\Tutorial $tuto)
+    {
+        $this->tutos->removeElement($tuto);
+    }
+
+    /**
+     * Get tutos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTutos()
+    {
+        return $this->tutos;
     }
 }

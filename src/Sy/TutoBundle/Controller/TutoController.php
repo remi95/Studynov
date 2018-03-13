@@ -69,9 +69,9 @@ class TutoController extends Controller
         $user = $this->getUser();
         $tuto = new Tutorial();
         $tuto->setAuthor($user);
+        $groups = $user->getGroupClasses();
 
-
-        $form = $this -> createForm(TutorialType::class, $tuto);
+        $form = $this -> createForm(TutorialType::class, $tuto, ['groups' => $groups]);
 
         $form->handleRequest($request);
 
@@ -97,7 +97,8 @@ class TutoController extends Controller
         $authortuto = $tuto->getAuthor();
 
         if ($user == $authortuto) {
-            $form = $this->createForm(TutorialType::class, $tuto);
+            $groups = $user->getGroupClasses();
+            $form = $this -> createForm(TutorialType::class, $tuto, ['groups' => $groups]);
 
             $form->handleRequest($request);
 

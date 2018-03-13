@@ -65,6 +65,11 @@ class Tutorial
     private $fullVisibility;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", inversedBy="tutos")
+     */
+    private $groups;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\User", inversedBy="tutorials")
      */
     private $author;
@@ -295,5 +300,39 @@ class Tutorial
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add group
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $group
+     *
+     * @return Tutorial
+     */
+    public function addGroup(\Sy\MainBundle\Entity\GroupClass $group)
+    {
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $group
+     */
+    public function removeGroup(\Sy\MainBundle\Entity\GroupClass $group)
+    {
+        $this->groups->removeElement($group);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

@@ -14,12 +14,10 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findTutos($groups, $page, $nbPerPage){
         $qry = $this->createQueryBuilder('t')
-            ->leftJoin('t.author', 'u')
-            ->addSelect('u')
-            ->leftJoin('u.groupClasses', 'g')
-            ->addSelect('g')
+            ->leftJoin('t.groups', 'g')
             ->andWhere('t.fullVisibility = true')
-            ->orWhere("g = '".$groups."'")
+            ->orWhere('g IN (:userGroups)')
+            ->setParameter('userGroups', $groups)
             ->orderBy('t.date', 'DESC')
             ->getQuery();
 
@@ -32,13 +30,12 @@ class TutorialRepository extends \Doctrine\ORM\EntityRepository
         $qry = $this->createQueryBuilder('t')
             ->leftJoin('t.categories', 'c')
             ->addSelect('c')
-            ->leftJoin('t.author', 'u')
-            ->addSelect('u')
-            ->leftJoin('u.classroom', 'cl')
-            ->addSelect('cl')
+            ->leftJoin('t.groups', 'g')
             ->andWhere('t.fullVisibility = true')
-            ->orWhere("cl.name = '".$groups."'")
-            ->andWhere("c.slug = '".$category."'")
+            ->orWhere('g IN (:userGroups)')
+            ->andWhere('c.slug = :category')
+            ->setParameter('userGroups', $groups)
+            ->setParameter('category', $category)
             ->orderBy('t.date', 'DESC')
             ->getQuery();
 
