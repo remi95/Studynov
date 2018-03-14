@@ -56,7 +56,8 @@ class TutorialAdmin extends AbstractAdmin
         $datagridMapper->add('title')
             ->add('content')
             ->add('fullVisibility')
-            ->add('categories');
+            ->add('categories')
+            ->add('groups');
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -65,7 +66,8 @@ class TutorialAdmin extends AbstractAdmin
             ->add('date')
             ->add('editDate')
             ->add('fullVisibility')
-            ->add('categories');
+            ->add('categories')
+            ->add('groups');
     }
 
     public function getNewInstance()

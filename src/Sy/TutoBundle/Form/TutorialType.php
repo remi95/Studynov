@@ -42,7 +42,8 @@ class TutorialType extends AbstractType
                 'class' => 'SyMainBundle:GroupClass',
                 'choices' => $options['groups'],
                 'label' => 'Groupes',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('categories', EntityType::class, [
                     'class' => 'SyMainBundle:Category',
