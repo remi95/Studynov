@@ -36,13 +36,6 @@ class Comment
     private $date;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="likes", type="integer", nullable=true)
-     */
-    private $likes;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Sy\MainBundle\Entity\User", inversedBy="comments")
      */
     private $author;
@@ -52,6 +45,16 @@ class Comment
      */
     private $post;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Vote", mappedBy="comment")
+     */
+    private $votes;
+
+    public function __construct()
+    {
+        $this->likes = 0;
+        $this->date = new \DateTime();
+    }
 
     /**
      * Get id
@@ -181,5 +184,39 @@ class Comment
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \Sy\ForumBundle\Entity\Vote $vote
+     *
+     * @return Comment
+     */
+    public function addVote(\Sy\ForumBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \Sy\ForumBundle\Entity\Vote $vote
+     */
+    public function removeVote(\Sy\ForumBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

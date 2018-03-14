@@ -1,0 +1,89 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Post - {{ post.title }}{% endblock %}
+
+{% block body %}
+
+    <a href="{{ app.request.headers.get('referer') }}">Retour</a>
+
+    {% if app.user == post.author %}
+        <a href="{{ path('sy_editTuto', {'id': post.id}) }}"
+           type="button"
+           class="btn btn-primary col-sm-2">Modifier</a>
+    {% endif %}
+
+    <h1>{{ post.title }}</h1>
+
+    <div>
+        Ecrit par {{ post.author }} <br>
+        Publié le {{ post.date|date('d.m.Y') }} <br>
+    </div>
+
+    <div>
+        {% for category in post.categories %}
+            <a href="{{ path('sy_forum', {'category': category.slug}) }}" type="button" class="btn btn-info">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="jumbotron">
+        {{ post.content|raw }}
+    </div>
+
+    <p>
+        {% if post.tuto != null %}
+            Lié au tuto : <a href="{{ path('sy_tuto', {'slug': post.tuto.slug}) }}">{{ post.tuto.title }}</a>
+        {% endif %}
+        {% if post.project != null %}
+            Lié au projet : <a href="{{ path('sy_agenda') }}">{{ post.project }}</a>
+        {% endif %}
+    </p>
+
+    <h2>Ajouter un commentaire</h2>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    <div>
+        {% for comment in post.comments %}
+            <p>
+                {{ comment.author }}
+                {{ comment.date|date('d.m.Y') }}
+                {{ comment.content|raw }}
+            </p>
+
+            <button class="vote" data-comment="{{ comment.id }}" data-like="true">J'aime</button>
+            <button class="vote" data-comment="{{ comment.id }}" data-like="false">Je n'aime pas</button>
+            <div id="result"></div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).on('click', 'button.vote', function(){
+            console.log($(this).data('comment'));
+            $.ajax({
+                type: "POST",
+                url: '{{ (path('sy_add_like')) }}',
+                dataType: "json",
+                data: {
+                    "commentId": $(this).data('comment'),
+                    "like": $(this).data('like')
+                },
+                async: true,
+                success: function (data)
+                {
+                    console.log(data.output);
+                    $('div#result').html(data.output);
+                }
+            });
+            return false;
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Forum{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Forum</h1>
+
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Catégories
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item"
+               href="{{ path('sy_forum') }}">
+                Tout afficher
+            </a>
+            {% for eachCategory in categories %}
+                <a class="dropdown-item"
+                   href="{{ path('sy_forum', {'category': eachCategory.slug}) }}">
+                    {{ eachCategory.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <a href="#" type="button" class="btn btn-success">Ajouter</a>
+
+    <div class="list-group col-sm-10 offset-sm-1">
+
+        {% for post in posts %}
+
+            <a href="{{ path('sy_post', {'slug': post.slug}) }}"
+               class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ post.title }}</h5>
+                    <small>
+                        {{ post.date|date('d.m.Y') }}
+                    </small>
+                </div>
+                <p class="mb-1">
+                    {{ post.content|slice(0, 100)|raw }}...
+                </p>
+
+                <small>Par {{ post.author }}</small>
+                <p>
+                    Nombre de commentaires : {{ post.comments|length }}
+                </p>
+                <p>
+                    Catégories :
+                    {% for cat in post.categories %}
+                        {{ cat.name }}
+                    {% endfor %}
+                </p>
+                <p>
+                    {% if post.tuto != null %}
+                        Lié au tuto : <a href="{{ path('sy_tuto', {'slug': post.tuto.slug}) }}">{{ post.tuto.title }}</a>
+                    {% endif %}
+                    {% if post.project != null %}
+                        Lié au projet : <a href="{{ path('sy_agenda') }}">{{ post.project }}</a>
+                    {% endif %}
+                </p>
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('sy_forum', {'category': category, 'page': page-1}) }}"
+                   tabindex="-1">Précédent</a>
+            </li>
+
+            {% for i in 1..maxPage %}
+                <li class="page-item {% if page == i %}active{% endif %}">
+                    <a class="page-link"
+                       href="{{ path('sy_forum', {'category': category, 'page': i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            <li class="page-item {% if page == maxPage %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('sy_forum', {'category': category, 'page': page+1}) }}">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}

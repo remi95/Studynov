@@ -71,7 +71,7 @@ class TutoController extends Controller
         $tuto->setAuthor($user);
         $groups = $user->getGroupClasses();
 
-        $form = $this -> createForm(TutorialType::class, $tuto, ['groups' => $groups]);
+        $form = $this->createForm(TutorialType::class, $tuto, ['groups' => $groups]);
 
         $form->handleRequest($request);
 

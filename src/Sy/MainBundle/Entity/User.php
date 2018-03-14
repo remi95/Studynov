@@ -18,7 +18,6 @@ class User extends BaseUser
      */
     protected $id;
 
-
     /**
      * @ORM\OneToMany(targetEntity="Sy\AgendaBundle\Entity\Project", mappedBy="author")
      */
@@ -40,15 +39,27 @@ class User extends BaseUser
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\POst", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="author")
      */
     private $tutos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Vote", mappedBy="user")
+     */
+    private $votes;
 
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    public function getVoteOnComment($comment)
+    {
+        // TODO : foreach vote, check if it's on the $comment
+        // TODO : return null or the vote
+        // TODO : On Twig, call this method and check
     }
 
     /**
@@ -244,5 +255,39 @@ class User extends BaseUser
     public function getTutos()
     {
         return $this->tutos;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \Sy\ForumBundle\Entity\Vote $vote
+     *
+     * @return User
+     */
+    public function addVote(\Sy\ForumBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \Sy\ForumBundle\Entity\Vote $vote
+     */
+    public function removeVote(\Sy\ForumBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

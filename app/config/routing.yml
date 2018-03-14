@@ -1,6 +1,6 @@
 sy_forum:
     resource: "@SyForumBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /forum
 
 sy_tuto:
     resource: "@SyTutoBundle/Resources/config/routing.yml"

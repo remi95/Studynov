@@ -69,7 +69,10 @@ class Project
      */
     private $tutos;
 
-
+    public function __toString()
+    {
+        return $this->getDescription();
+    }
 
     /**
      * Get id

@@ -1,3 +1,18 @@
-sy_forum_homepage:
-    path:     /
-    defaults: { _controller: SyForumBundle:Default:index }
+sy_forum:
+    path:     /list/{category}/{page}
+    defaults:
+        _controller:  SyForumBundle:Forum:index
+        category:     all
+        page: 1
+    requirements:
+        page: \d*
+
+sy_post:
+    path:   /post/{slug}
+    defaults:
+        _controller: SyForumBundle:Forum:view
+
+sy_add_like:
+    path: /like-request
+    defaults:
+        _controller: SyForumBundle:Forum:vote

@@ -125,3 +125,11 @@ ivory_ck_editor:
             toolbar:                    full
             filebrowserBrowseRoute:     elfinder
             filebrowserBrowseRouteParameters: []
+#            extraPlugins: 'codesnippet, widget'
+#    plugins:
+#        codesnippet:
+#            path:      '/studynov/web/bundles/symain/codesnippet/'
+#            filename:  'plugin.js'
+#        widget:
+#            path:      '/bundles/symain/widget/'
+#            filename:  'plugin.js'
