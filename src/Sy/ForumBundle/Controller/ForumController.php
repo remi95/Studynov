@@ -80,7 +80,8 @@ class ForumController extends Controller
 
         return $this->render('SyForumBundle:Default:post.html.twig', [
             'post' => $post,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 

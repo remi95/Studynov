@@ -54,9 +54,15 @@
                 {{ comment.date|date('d.m.Y') }}
                 {{ comment.content|raw }}
             </p>
+            {% if user.getVoteOnComment(comment) != null %}
+                <p>TU AS VOTE {{ user.getVoteOnComment(comment) }}</p>
+                <button class="vote" data-comment="{{ comment.id }}" data-like="true" disabled>J'aime</button>
+                <button class="vote" data-comment="{{ comment.id }}" data-like="false" disabled>Je n'aime pas</button>
+            {% else %}
+                <button class="vote" data-comment="{{ comment.id }}" data-like="true">J'aime</button>
+                <button class="vote" data-comment="{{ comment.id }}" data-like="false">Je n'aime pas</button>
+            {% endif %}
 
-            <button class="vote" data-comment="{{ comment.id }}" data-like="true">J'aime</button>
-            <button class="vote" data-comment="{{ comment.id }}" data-like="false">Je n'aime pas</button>
             <div id="result"></div>
         {% endfor %}
     </div>

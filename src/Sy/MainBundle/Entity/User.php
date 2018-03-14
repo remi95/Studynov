@@ -57,9 +57,14 @@ class User extends BaseUser
 
     public function getVoteOnComment($comment)
     {
-        // TODO : foreach vote, check if it's on the $comment
-        // TODO : return null or the vote
-        // TODO : On Twig, call this method and check
+        foreach ($this->getVotes() as $userVote) {
+            foreach ($comment->getVotes() as $commentVote) {
+                if ($userVote == $commentVote) {
+                    return $userVote->getVote() ? "J'aime" : "Je n'aime pas";
+                }
+            }
+        }
+        return null;
     }
 
     /**
