@@ -40,6 +40,11 @@ class Category
      */
     private $tutorials;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="categories")
+     */
+    private $posts;
+
 
     public function __toString()
     {
@@ -90,11 +95,11 @@ class Category
     /**
      * Add tutorial
      *
-     * @param \Sy\TutoBundle\Tutorial $tutorial
+     * @param \Sy\TutoBundle\Entity\Tutorial $tutorial
      *
      * @return Category
      */
-    public function addTutorial(\Sy\TutoBundle\Tutorial $tutorial)
+    public function addTutorial(\Sy\TutoBundle\Entity\Tutorial $tutorial)
     {
         $this->tutorials[] = $tutorial;
 
@@ -104,9 +109,9 @@ class Category
     /**
      * Remove tutorial
      *
-     * @param \Sy\TutoBundle\Tutorial $tutorial
+     * @param \Sy\TutoBundle\Entity\Tutorial $tutorial
      */
-    public function removeTutorial(\Sy\TutoBundle\Tutorial $tutorial)
+    public function removeTutorial(\Sy\TutoBundle\Entity\Tutorial $tutorial)
     {
         $this->tutorials->removeElement($tutorial);
     }
@@ -143,5 +148,39 @@ class Category
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     *
+     * @return Category
+     */
+    public function addPost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     */
+    public function removePost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

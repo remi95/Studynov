@@ -34,6 +34,16 @@ class User extends BaseUser
      */
     private $tutorials;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Comment", mappedBy="author")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\POst", mappedBy="author")
+     */
+    private $tutos;
+
 
     public function __construct()
     {
@@ -142,5 +152,97 @@ class User extends BaseUser
     public function getGroupClasses()
     {
         return $this->groupClasses;
+    }
+
+    /**
+     * Add groupClass
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $groupClass
+     *
+     * @return User
+     */
+    public function addGroupClass(\Sy\MainBundle\Entity\GroupClass $groupClass)
+    {
+        $this->groupClasses[] = $groupClass;
+
+        return $this;
+    }
+
+    /**
+     * Remove groupClass
+     *
+     * @param \Sy\MainBundle\Entity\GroupClass $groupClass
+     */
+    public function removeGroupClass(\Sy\MainBundle\Entity\GroupClass $groupClass)
+    {
+        $this->groupClasses->removeElement($groupClass);
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Sy\ForumBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\Sy\ForumBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Sy\ForumBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Sy\ForumBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add tuto
+     *
+     * @param \Sy\ForumBundle\Entity\POst $tuto
+     *
+     * @return User
+     */
+    public function addTuto(\Sy\ForumBundle\Entity\POst $tuto)
+    {
+        $this->tutos[] = $tuto;
+
+        return $this;
+    }
+
+    /**
+     * Remove tuto
+     *
+     * @param \Sy\ForumBundle\Entity\POst $tuto
+     */
+    public function removeTuto(\Sy\ForumBundle\Entity\POst $tuto)
+    {
+        $this->tutos->removeElement($tuto);
+    }
+
+    /**
+     * Get tutos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTutos()
+    {
+        return $this->tutos;
     }
 }

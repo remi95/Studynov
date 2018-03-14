@@ -79,6 +79,11 @@ class Tutorial
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="tuto")
+     */
+    private $posts;
+
 
     /**
      * Constructor
@@ -334,5 +339,39 @@ class Tutorial
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     *
+     * @return Tutorial
+     */
+    public function addPost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     */
+    public function removePost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

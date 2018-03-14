@@ -64,6 +64,11 @@ class Project
      */
     private $group;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="project")
+     */
+    private $tutos;
+
 
 
     /**
@@ -194,5 +199,46 @@ class Project
     public function getGroup()
     {
         return $this->group;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tutos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tuto
+     *
+     * @param \Sy\ForumBundle\Entity\Post $tuto
+     *
+     * @return Project
+     */
+    public function addTuto(\Sy\ForumBundle\Entity\Post $tuto)
+    {
+        $this->tutos[] = $tuto;
+
+        return $this;
+    }
+
+    /**
+     * Remove tuto
+     *
+     * @param \Sy\ForumBundle\Entity\Post $tuto
+     */
+    public function removeTuto(\Sy\ForumBundle\Entity\Post $tuto)
+    {
+        $this->tutos->removeElement($tuto);
+    }
+
+    /**
+     * Get tutos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTutos()
+    {
+        return $this->tutos;
     }
 }
