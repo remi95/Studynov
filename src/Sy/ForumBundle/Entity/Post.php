@@ -84,6 +84,11 @@ class Post
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * Get id
      *

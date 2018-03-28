@@ -56,6 +56,11 @@ class Comment
         $this->date = new \DateTime();
     }
 
+    public function __toString()
+    {
+        return $this->getContent();
+    }
+
     /**
      * Get id
      *

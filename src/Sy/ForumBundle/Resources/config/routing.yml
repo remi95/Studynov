@@ -12,6 +12,18 @@ sy_post:
     defaults:
         _controller: SyForumBundle:Forum:view
 
+sy_add_post:
+    path:   /add
+    defaults:
+        _controller: SyForumBundle:Forum:add
+
+sy_edit_post:
+    path:   /edit/{id}
+    defaults:
+        _controller: SyForumBundle:Forum:edit
+    requirements :
+            id : '\d+'
+
 sy_add_like:
     path: /like-request
     defaults:

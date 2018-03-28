@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier un post{% endblock %}
+
+{% block body %}
+
+    <a href="{{ app.request.headers.get('referer') }}">Retour</a>
+
+    <h1>Modifier un post</h1>
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

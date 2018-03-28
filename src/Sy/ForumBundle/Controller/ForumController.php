@@ -3,8 +3,10 @@
 namespace Sy\ForumBundle\Controller;
 
 use Sy\ForumBundle\Entity\Comment;
+use Sy\ForumBundle\Entity\Post;
 use Sy\ForumBundle\Entity\Vote;
 use Sy\ForumBundle\Form\CommentType;
+use Sy\ForumBundle\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,13 +36,13 @@ class ForumController extends Controller
 
         $maxPage = ceil(count($posts)/$nbPerPage);
 
-        if($page < 1 || $page > $maxPage){
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        if (count($posts) < 1){
+            $this->addFlash('error', 'Cette catégorie n\'a pas de posts ou n\'existe pas');
+            return $this->redirectToRoute('sy_forum');
         }
 
-        if ($posts == null){
-            $this->addFlash('error', 'Cette catégorie n\'existe pas');
-            return $this->redirectToRoute('sy_forum');
+        if($page < 1 || $page > $maxPage){
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
 
         return $this->render('SyForumBundle:Default:posts.html.twig', [
@@ -61,6 +63,9 @@ class ForumController extends Controller
                 'slug' => $slug
             ]);
 
+        $comments = $em->getRepository('SyForumBundle:Comment')
+            ->getCommentsByPost($post);
+
         $user = $this->getUser();
         $comment = new Comment();
         $comment->setAuthor($user);
@@ -80,9 +85,67 @@ class ForumController extends Controller
 
         return $this->render('SyForumBundle:Default:post.html.twig', [
             'post' => $post,
+            'comments' => $comments,
             'form' => $form->createView(),
             'user' => $user
         ]);
+    }
+
+    public function addAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $post= new Post();
+        $post->setAuthor($user);
+
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $addedPost = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($addedPost);
+            $em->flush();
+
+            return $this->redirectToRoute('sy_post', ['slug' => $addedPost->getSlug()]);
+        }
+
+        return $this->render('SyForumBundle:Default:addPost.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function editAction(Request $request, $id){
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('SyForumBundle:Post')->find($id);
+
+        if ($post == null) {
+            $this->addFlash('error', 'Vous ne pouvez pas modifier un post qui n\'existe pas');
+            return $this->redirectToRoute('sy_forum');
+        }
+
+        $authorPost = $post->getAuthor();
+
+        if ($user == $authorPost) {
+            $form = $this->createForm(PostType::class, $post);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()){
+                $editedPost = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($editedPost);
+                $em->flush();
+
+                return $this->redirectToRoute('sy_post', ['slug' => $editedPost->getSlug()]);
+            }
+
+            return $this->render('SyForumBundle:Default:editPost.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+        $this->addFlash('forbidden', 'Vous n\'avez pas le droit de modifier un post qui n\'est pas le vôtre');
+        return $this->redirectToRoute('sy_post', ['slug' => $post->getSlug()]);
     }
 
     public function voteAction(Request $request)

@@ -32,13 +32,13 @@ class TutoController extends Controller
 
         $maxPage = ceil(count($tutos)/$nbPerPage);
 
-        if($page < 1 || $page > $maxPage){
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        if (count($tutos) < 1){
+            $this->addFlash('error', 'Cette catégorie n\'a pas de posts ou n\'existe pas');
+            return $this->redirectToRoute('sy_forum');
         }
 
-        if ($tutos == null){
-            $this->addFlash('error', 'Cette catégorie n\'existe pas');
-            return $this->redirectToRoute('sy_tutos');
+        if($page < 1 || $page > $maxPage){
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
 
         return $this->render('SyTutoBundle:Default:tutos.html.twig', [
@@ -94,6 +94,12 @@ class TutoController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $tuto = $em->getRepository('SyTutoBundle:Tutorial')->find($id);
+
+        if ($tuto == null) {
+            $this->addFlash('error', 'Vous ne pouvez pas modifier un tutoriel qui n\'existe pas');
+            return $this->redirectToRoute('sy_tutos');
+        }
+
         $authortuto = $tuto->getAuthor();
 
         if ($user == $authortuto) {
@@ -116,7 +122,8 @@ class TutoController extends Controller
                 'form' => $form->createView()
             ));
         }
-        return $this->redirectToRoute('sy_tuto');
+        $this->addFlash('forbidden', 'Vous n\'avez pas le droit de modifier un tutoriel qui n\'est pas le vôtre');
+        return $this->redirectToRoute('sy_tuto', ['slug' => $tuto->getSlug()]);
 
     }
 }

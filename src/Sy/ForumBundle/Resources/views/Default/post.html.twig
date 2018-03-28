@@ -4,10 +4,16 @@
 
 {% block body %}
 
+    {% for message in app.flashes('forbidden') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <a href="{{ app.request.headers.get('referer') }}">Retour</a>
 
     {% if app.user == post.author %}
-        <a href="{{ path('sy_editTuto', {'id': post.id}) }}"
+        <a href="{{ path('sy_edit_post', {'id': post.id}) }}"
            type="button"
            class="btn btn-primary col-sm-2">Modifier</a>
     {% endif %}
@@ -16,7 +22,7 @@
 
     <div>
         Ecrit par {{ post.author }} <br>
-        Publié le {{ post.date|date('d.m.Y') }} <br>
+        Publié le {{ post.date|date('d.m.y') }} à {{ post.date|date('H:i') }}<br>
     </div>
 
     <div>
@@ -48,19 +54,19 @@
     </div>
 
     <div>
-        {% for comment in post.comments %}
+        {% for comment in comments %}
             <p>
-                {{ comment.author }}
-                {{ comment.date|date('d.m.Y') }}
-                {{ comment.content|raw }}
+                {{ comment[0].author }}
+                {{ comment[0].date|date('d.m.y H:i') }}
+                {{ comment[0].content|raw }}
             </p>
-            {% if user.getVoteOnComment(comment) != null %}
-                <p>TU AS VOTE {{ user.getVoteOnComment(comment) }}</p>
-                <button class="vote" data-comment="{{ comment.id }}" data-like="true" disabled>J'aime</button>
-                <button class="vote" data-comment="{{ comment.id }}" data-like="false" disabled>Je n'aime pas</button>
+            {% if user.getVoteOnComment(comment[0]) != null %}
+                <p>TU AS VOTE {{ user.getVoteOnComment(comment[0]) }}</p>
+                <button class="vote" data-comment="{{ comment[0].id }}" data-like="true" disabled>J'aime</button>
+                <button class="vote" data-comment="{{ comment[0].id }}" data-like="false" disabled>Je n'aime pas</button>
             {% else %}
-                <button class="vote" data-comment="{{ comment.id }}" data-like="true">J'aime</button>
-                <button class="vote" data-comment="{{ comment.id }}" data-like="false">Je n'aime pas</button>
+                <button class="vote" data-comment="{{ comment[0].id }}" data-like="true">J'aime</button>
+                <button class="vote" data-comment="{{ comment[0].id }}" data-like="false">Je n'aime pas</button>
             {% endif %}
 
             <div id="result"></div>

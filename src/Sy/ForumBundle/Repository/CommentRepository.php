@@ -10,4 +10,18 @@ namespace Sy\ForumBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCommentsByPost($post) {
+        $qry = $this->createQueryBuilder('c')
+            ->leftJoin('c.votes', 'v')
+            ->addSelect('COUNT(v.vote) as nbVotes')
+            ->addSelect('SUM(v.vote) as nbVotesPos')
+            ->andWhere('c.post = :post')
+            ->setParameter('post', $post)
+            ->groupBy('v.comment')
+            ->addOrderBy('nbVotesPos', 'DESC')
+            ->addOrderBy('c.date', 'DESC')
+            ->getQuery();
+
+        return $qry->getResult();
+    }
 }

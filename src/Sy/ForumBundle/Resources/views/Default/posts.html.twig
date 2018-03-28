@@ -42,7 +42,7 @@
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ post.title }}</h5>
                     <small>
-                        {{ post.date|date('d.m.Y') }}
+                        {{ post.date|date('d.m.y H:i') }}
                     </small>
                 </div>
                 <p class="mb-1">
@@ -59,6 +59,7 @@
                         {{ cat.name }}
                     {% endfor %}
                 </p>
+            </a>
                 <p>
                     {% if post.tuto != null %}
                         Lié au tuto : <a href="{{ path('sy_tuto', {'slug': post.tuto.slug}) }}">{{ post.tuto.title }}</a>
@@ -67,7 +68,6 @@
                         Lié au projet : <a href="{{ path('sy_agenda') }}">{{ post.project }}</a>
                     {% endif %}
                 </p>
-            </a>
 
         {% endfor %}
 

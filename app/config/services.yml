@@ -55,3 +55,17 @@ services:
             tags:
                 - { name: sonata.admin, manager_type: orm, label: Post, group: Forum }
             public: true
+
+    admin.comment:
+            class: Sy\ForumBundle\Admin\CommentAdmin
+            arguments: [~, Sy\ForumBundle\Entity\Comment, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Comment, group: Forum }
+            public: true
+
+    admin.vote:
+            class: Sy\ForumBundle\Admin\VoteAdmin
+            arguments: [~, Sy\ForumBundle\Entity\Vote, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Vote, group: Forum }
+            public: true
