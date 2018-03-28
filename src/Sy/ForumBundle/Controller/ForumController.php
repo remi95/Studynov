@@ -157,7 +157,13 @@ class ForumController extends Controller
             $em = $this->getDoctrine()->getManager();
             $comment = $em->getRepository('SyForumBundle:Comment')->find($commentId);
 
-            $vote = new Vote();
+            $alreadyVoted = $em->getRepository('SyForumBundle:Vote')
+                ->findOneBy(
+                    ['comment' => $comment,
+                    'user' => $this->getUser()]
+                );
+
+            $vote = $alreadyVoted != null ? $alreadyVoted : new Vote();
             $vote->setUser($this->getUser())
                 ->setComment($comment)
                 ->setVote($like);
@@ -165,7 +171,7 @@ class ForumController extends Controller
             $em->persist($vote);
             $em->flush();
 
-            $arrData = ['output' => $like];
+            $arrData = ['output' => "refresh"];
             return new JsonResponse($arrData);
         }
         return $this->render('SyForumBundle:Default:post.html.twig');

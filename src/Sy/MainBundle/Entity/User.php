@@ -60,7 +60,7 @@ class User extends BaseUser
         foreach ($this->getVotes() as $userVote) {
             foreach ($comment->getVotes() as $commentVote) {
                 if ($userVote == $commentVote) {
-                    return $userVote->getVote() ? "J'aime" : "Je n'aime pas";
+                    return $userVote->getVote() ? 'like' : 'dislike';
                 }
             }
         }

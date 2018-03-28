@@ -8,7 +8,7 @@
 }
 
 
-.help-block ul.list-unstyled{
+.help-block ul.list-unstyled {
     background-color: #e57373;
     padding: 10px;
     border-radius: 5px;
@@ -20,5 +20,9 @@
     margin: 0 auto;
 }
 .fc-event-container{
+    cursor: pointer;
+}
+
+.vote {
     cursor: pointer;
 }

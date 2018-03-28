@@ -53,23 +53,30 @@
         {{ form_end(form) }}
     </div>
 
-    <div>
+    <div id="comments">
         {% for comment in comments %}
-            <p>
-                {{ comment[0].author }}
-                {{ comment[0].date|date('d.m.y H:i') }}
-                {{ comment[0].content|raw }}
-            </p>
-            {% if user.getVoteOnComment(comment[0]) != null %}
-                <p>TU AS VOTE {{ user.getVoteOnComment(comment[0]) }}</p>
-                <button class="vote" data-comment="{{ comment[0].id }}" data-like="true" disabled>J'aime</button>
-                <button class="vote" data-comment="{{ comment[0].id }}" data-like="false" disabled>Je n'aime pas</button>
-            {% else %}
-                <button class="vote" data-comment="{{ comment[0].id }}" data-like="true">J'aime</button>
-                <button class="vote" data-comment="{{ comment[0].id }}" data-like="false">Je n'aime pas</button>
-            {% endif %}
 
-            <div id="result"></div>
+            {% set myVote = user.getVoteOnComment(comment[0]) %}
+
+            <div class="jumbotron">
+                <p>
+                    {{ comment[0].author }}
+                    {{ comment[0].date|date('d.m.y H:i') }}
+                    {{ comment[0].content|raw }}
+                </p>
+                <i class="material-icons vote {% if myVote == 'like' %}text-success{% endif %} "
+                   data-comment="{{ comment[0].id }}"
+                   data-like="true">
+                    thumb_up
+                </i>{% if comment['nbVotesPos'] is not null %}{{ comment['nbVotesPos'] }}{% else %}0{% endif %}
+                <i class="material-icons vote {% if myVote == 'dislike' %}text-danger{% endif %}"
+                   data-comment="{{ comment[0].id }}"
+                   data-like="false">
+                    thumb_down
+                </i>{{ comment['nbVotes'] - comment['nbVotesPos'] }}
+
+                <div id="result"></div>
+            </div>
         {% endfor %}
     </div>
 
@@ -78,8 +85,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $(document).on('click', 'button.vote', function(){
-            console.log($(this).data('comment'));
+        $(document).on('click', 'i.vote', function(){
             $.ajax({
                 type: "POST",
                 url: '{{ (path('sy_add_like')) }}',
@@ -91,8 +97,9 @@
                 async: true,
                 success: function (data)
                 {
-                    console.log(data.output);
-                    $('div#result').html(data.output);
+                    if (data.output = 'refresh') {
+                        $("#comments").load(" #comments");
+                    }
                 }
             });
             return false;
