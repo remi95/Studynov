@@ -69,3 +69,10 @@ services:
             tags:
                 - { name: sonata.admin, manager_type: orm, label: Vote, group: Forum }
             public: true
+
+#    admin.user:
+#                class: Sy\MainBundle\Admin\UserAdmin
+#                arguments: [~, Sy\MainBundle\Entity\User, ~]
+#                tags:
+#                    - { name: sonata.admin, manager_type: orm, label: User, group: General }
+#                public: true

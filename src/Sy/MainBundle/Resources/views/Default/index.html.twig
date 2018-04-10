@@ -1,4 +1,40 @@
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} - Dashboard{% endblock %}
+
 {% block body %}
-Hello World!
+    <div class="d-flex justify-content-around mt-5 dashboard-cards">
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">
+                <a href="{{ path('sy_agenda') }}">Projets</a>
+            </h5>
+            <ul class="list-group list-group-flush">
+                {% for project in projects %}
+                    <li class="list-group-item"><span class="font-weight-bold">{{ project.course }}</span> - {{ project.description|slice(0, 50) }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">
+                <a href="{{ path('sy_tutos') }}">Derniers tutoriels</a>
+            </h5>
+            <ul class="list-group list-group-flush">
+                {% for tuto in tutos %}
+                    <a href="{{ path('sy_tuto', {'slug': tuto.slug}) }}" class="list-group-item">{{ tuto.title }} - <span class="font-italic">{{ tuto.author }}</span></a>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">
+                <a href="{{ path('sy_forum') }}">Derniers posts</a>
+            </h5>
+            <ul class="list-group list-group-flush">
+                {% for post in posts %}
+                    <a href="{{ path('sy_post', {'slug': post.slug}) }}" class="list-group-item">{{ post.title }} - <span class="font-italic">{{ post.author }}</span></a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

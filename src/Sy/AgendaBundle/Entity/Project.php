@@ -67,7 +67,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="project")
      */
-    private $tutos;
+    private $posts;
 
     public function __toString()
     {
@@ -243,5 +243,39 @@ class Project
     public function getTutos()
     {
         return $this->tutos;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     *
+     * @return Project
+     */
+    public function addPost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     */
+    public function removePost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

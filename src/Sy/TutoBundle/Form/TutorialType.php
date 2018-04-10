@@ -35,7 +35,7 @@ class TutorialType extends AbstractType
                 'label' => 'Contenu'
             ])
             ->add('fullVisibility', CheckboxType::class,[
-                'label' => 'Visible à tout le monde (Si "non" seule la classe pourra le voir.)',
+                'label' => 'Visible à tout le monde (Si "non" seuls les groupes sélectionnés pourront le voir.)',
                     'required' => false
             ])
             ->add('groups', EntityType::class, [

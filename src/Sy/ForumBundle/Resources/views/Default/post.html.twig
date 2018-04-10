@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    <div class="loader"></div>
+
     {% for message in app.flashes('forbidden') %}
         <div class="alert alert-danger" role="alert">
             {{ message }}
@@ -68,14 +70,14 @@
                    data-comment="{{ comment[0].id }}"
                    data-like="true">
                     thumb_up
-                </i>{% if comment['nbVotesPos'] is not null %}{{ comment['nbVotesPos'] }}{% else %}0{% endif %}
+                </i>
+                {% if comment['nbVotesPos'] is not null %}{{ comment['nbVotesPos'] }}{% else %}0{% endif %}
                 <i class="material-icons vote {% if myVote == 'dislike' %}text-danger{% endif %}"
                    data-comment="{{ comment[0].id }}"
                    data-like="false">
                     thumb_down
-                </i>{{ comment['nbVotes'] - comment['nbVotesPos'] }}
-
-                <div id="result"></div>
+                </i>
+                {{ comment['nbVotes'] - comment['nbVotesPos'] }}
             </div>
         {% endfor %}
     </div>
@@ -85,6 +87,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+        $(document).ajaxStart(function(){
+            $(".loader").addClass("active");
+        });
+        $(document).ajaxComplete(function(){
+            $(".loader").removeClass("active");
+        });
         $(document).on('click', 'i.vote', function(){
             $.ajax({
                 type: "POST",

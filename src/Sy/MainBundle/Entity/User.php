@@ -24,7 +24,7 @@ class User extends BaseUser
     private $projects;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", mappedBy="users")
      */
     private $groupClasses;
 
@@ -41,7 +41,7 @@ class User extends BaseUser
     /**
      * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Post", mappedBy="author")
      */
-    private $tutos;
+    private $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="Sy\ForumBundle\Entity\Vote", mappedBy="user")
@@ -237,7 +237,7 @@ class User extends BaseUser
      */
     public function addTuto(\Sy\ForumBundle\Entity\POst $tuto)
     {
-        $this->tutos[] = $tuto;
+        $this->tutorials[] = $tuto;
 
         return $this;
     }
@@ -249,7 +249,7 @@ class User extends BaseUser
      */
     public function removeTuto(\Sy\ForumBundle\Entity\POst $tuto)
     {
-        $this->tutos->removeElement($tuto);
+        $this->tutorials->removeElement($tuto);
     }
 
     /**
@@ -259,7 +259,7 @@ class User extends BaseUser
      */
     public function getTutos()
     {
-        return $this->tutos;
+        return $this->tutorials;
     }
 
     /**
@@ -294,5 +294,39 @@ class User extends BaseUser
     public function getVotes()
     {
         return $this->votes;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     *
+     * @return User
+     */
+    public function addPost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \Sy\ForumBundle\Entity\Post $post
+     */
+    public function removePost(\Sy\ForumBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

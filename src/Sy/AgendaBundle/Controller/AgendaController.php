@@ -29,7 +29,6 @@ class AgendaController extends Controller
 
         $user = $this->getUser();
         $groups = $user->getGroupClasses();
-
         $project = new Project();
         $project->setAuthor( $user );
 

@@ -29,7 +29,7 @@ class GroupClass
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\User", inversedBy="groupClass")
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\User", inversedBy="groupClasses")
      */
     private $users;
 

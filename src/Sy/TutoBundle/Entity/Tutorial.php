@@ -65,7 +65,7 @@ class Tutorial
     private $fullVisibility;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", inversedBy="tutos")
+     * @ORM\ManyToMany(targetEntity="Sy\MainBundle\Entity\GroupClass", mappedBy="tutos")
      */
     private $groups;
 
@@ -96,7 +96,7 @@ class Tutorial
 
     public function __toString()
     {
-        return $this->getTitle();
+        return (String) $this->getTitle();
     }
 
     /**

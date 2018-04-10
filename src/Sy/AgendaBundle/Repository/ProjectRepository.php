@@ -20,4 +20,17 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
 
         return $qry;
     }
+
+    public function findLastProjects($groups)
+    {
+        $qry = $this-> createQueryBuilder('p')
+            ->andWhere("p.group IN (:groups)")
+            ->setParameter('groups', $groups)
+            ->setMaxResults(3)
+            ->orderBy('p.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $qry;
+    }
 }

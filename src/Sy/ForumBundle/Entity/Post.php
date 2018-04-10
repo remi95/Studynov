@@ -65,12 +65,12 @@ class Post
     private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sy\TutoBundle\Entity\Tutorial", inversedBy="post")
+     * @ORM\ManyToOne(targetEntity="Sy\TutoBundle\Entity\Tutorial", inversedBy="posts")
      */
     private $tuto;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sy\AgendaBundle\Entity\Project", inversedBy="post")
+     * @ORM\ManyToOne(targetEntity="Sy\AgendaBundle\Entity\Project", inversedBy="posts")
      */
     private $project;
 
