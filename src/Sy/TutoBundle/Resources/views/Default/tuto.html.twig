@@ -10,7 +10,7 @@
         </div>
     {% endfor %}
 
-    <a href="{{ app.request.headers.get('referer') }}">Retour</a>
+    <a href="{{ path('sy_tutos') }}">Retour à la liste des tutoriels</a>
 
     {% if app.user == tuto.author %}
         <a href="{{ path('sy_editTuto', {'id': tuto.id}) }}"

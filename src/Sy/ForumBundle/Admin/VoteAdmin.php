@@ -48,7 +48,7 @@ class VoteAdmin extends AbstractAdmin
     {
         $instance = parent::getNewInstance();
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
-        $instance->setAuthor($user);
+        $instance->setUser($user);
 
         return $instance;
     }

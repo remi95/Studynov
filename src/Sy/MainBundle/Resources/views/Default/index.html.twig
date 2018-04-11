@@ -21,7 +21,7 @@
             </h5>
             <ul class="list-group list-group-flush">
                 {% for tuto in tutos %}
-                    <a href="{{ path('sy_tuto', {'slug': tuto.slug}) }}" class="list-group-item">{{ tuto.title }} - <span class="font-italic">{{ tuto.author }}</span></a>
+                    <a href="{{ path('sy_tuto', {'slug': tuto.slug}) }}" class="list-group-item list-group-item-action">{{ tuto.title }} - <span class="font-italic">{{ tuto.author }}</span></a>
                 {% endfor %}
             </ul>
         </div>
@@ -32,7 +32,7 @@
             </h5>
             <ul class="list-group list-group-flush">
                 {% for post in posts %}
-                    <a href="{{ path('sy_post', {'slug': post.slug}) }}" class="list-group-item">{{ post.title }} - <span class="font-italic">{{ post.author }}</span></a>
+                    <a href="{{ path('sy_post', {'slug': post.slug}) }}" class="list-group-item list-group-item-action">{{ post.title }} - <span class="font-italic">{{ post.author }}</span></a>
                 {% endfor %}
             </ul>
         </div>

@@ -23,7 +23,7 @@ class ForumController extends Controller
         $categories = $em->getRepository('SyMainBundle:Category')
             ->findAll();
 
-        $nbPerPage = 7;
+        $nbPerPage = 4;
 
         if ($category == 'all') {
             $posts = $em->getRepository('SyForumBundle:Post')

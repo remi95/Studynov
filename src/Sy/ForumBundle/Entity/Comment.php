@@ -58,7 +58,7 @@ class Comment
 
     public function __toString()
     {
-        return $this->getContent();
+        return (String) $this->getContent();
     }
 
     /**

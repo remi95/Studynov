@@ -12,7 +12,7 @@
         </div>
     {% endfor %}
 
-    <a href="{{ app.request.headers.get('referer') }}">Retour</a>
+    <a href="{{ path('sy_forum') }}">Retour à la liste des posts</a>
 
     {% if app.user == post.author %}
         <a href="{{ path('sy_edit_post', {'id': post.id}) }}"

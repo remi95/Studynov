@@ -71,7 +71,7 @@ class Project
 
     public function __toString()
     {
-        return $this->getDescription();
+        return (String) $this->getDescription();
     }
 
     /**

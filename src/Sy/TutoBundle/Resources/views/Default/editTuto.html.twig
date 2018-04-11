@@ -5,6 +5,9 @@
 {% block body %}
 
     {{ parent() }}
+
+    <a href="{{ path('sy_tutos') }}">Retour à la liste des tutoriels</a>
+
     <h1>Modification d'un tutoriel</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}
